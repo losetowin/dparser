@@ -180,7 +180,6 @@ public class HtmlParser {
 			try {
 				elem = htmlelem.select(config.getPath()).get(config.getPostion());
 			} catch (Exception e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 
@@ -190,13 +189,6 @@ public class HtmlParser {
 					.equals(config.getValType())) {
 				// 属性名称
 				String attributeName = config.getAttributeName();
-
-				for (Attribute a : elem.attributes()) {
-					System.out.println(a.getKey());
-					System.out.println(a.getValue());
-
-				}
-				;
 				value = elem.attr(attributeName);
 			} else {
 				value = elem.text();
@@ -231,8 +223,6 @@ public class HtmlParser {
 			}
 
 		}
-
-		System.out.println(className);
 
 		return (T) (obj);
 	}
