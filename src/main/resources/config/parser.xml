@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- path: 元素的dom路径; pos：元素的位置; valtype：字段值的类型，1为字面值， 2为dom属性值； attributename 
+	： valtype为1时可用，表示dom里面的属性名称; columentype : 数值类型，包含 int , long, string, double， 
+	date -->
+
+<transfers>
+	<transfer className="com.dutycode.parser.DemoEntity">
+		<column>
+			<columnName>realName</columnName>
+			<path>table tbody tr td input</path>
+			<pos>0</pos>
+			<valType>1</valType>
+			<attributeName>value</attributeName>
+			<columnType>string</columnType>
+		</column>
+		<column>
+			<columnName>computerIdcard</columnName>
+			<path>table tbody tr td input</path>
+			<pos>1</pos>
+			<valType>1</valType>
+			<attributeName>value</attributeName>
+			<columnType>string</columnType>
+		</column>
+		<column>
+			<columnName>idcard</columnName>
+			<path>table tbody tr td input</path>
+			<pos>2</pos>
+			<valType>1</valType>
+			<attributeName>value</attributeName>
+			<columnType>string</columnType>
+		</column>
+		<column>
+			<columnName>sex</columnName>
+			<path>table tbody tr td input</path>
+			<pos>3</pos>
+			<valType>1</valType>
+			<attributeName>value</attributeName>
+			<columnType>string</columnType>
+		</column>
+		<column>
+			<columnName>birthday</columnName>
+			<path>table tbody tr td input</path>
+			<pos>4</pos>
+			<valType>1</valType>
+			<attributeName>value</attributeName>
+			<columnType>string</columnType>
+		</column>
+		<column>
+			<columnName>householdType</columnName>
+			<path>table tbody tr td input</path>
+			<pos>5</pos>
+			<valType>1</valType>
+			<attributeName>value</attributeName>
+			<columnType>string</columnType>
+		</column>
+		<column>
+			<columnName>medicalCard</columnName>
+			<path>table tbody tr td input</path>
+			<pos>6</pos>
+			<valType>1</valType>
+			<attributeName>value</attributeName>
+			<columnType>string</columnType>
+		</column>
+		<column>
+			<columnName>cardState</columnName>
+			<path>table tbody tr td input</path>
+			<pos>7</pos>
+			<valType>1</valType>
+			<attributeName>value</attributeName>
+			<columnType>string</columnType>
+		</column>
+		<column>
+			<columnName>workerType</columnName>
+			<path>table tbody tr td input</path>
+			<pos>8</pos>
+			<valType>1</valType>
+			<attributeName>value</attributeName>
+			<columnType>string</columnType>
+		</column>
+		<column>
+			<columnName>jobTitle</columnName>
+			<path>table tbody tr td input</path>
+			<pos>10</pos>
+			<valType>1</valType>
+			<attributeName>value</attributeName>
+			<columnType>string</columnType>
+		</column>
+		<column>
+			<columnName>insuredUnit</columnName>
+			<path>table tbody tr td input</path>
+			<pos>12</pos>
+			<valType>1</valType>
+			<attributeName>value</attributeName>
+			<columnType>string</columnType>
+		</column>
+	</transfer>
+
+</transfers>
