@@ -1,8 +1,11 @@
 package com.dutycode.dparser.htmlparser;
 
 import java.io.File;
+import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,7 +18,6 @@ import org.dom4j.DocumentException;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 import org.jsoup.Jsoup;
-import org.jsoup.nodes.Attribute;
 
 import com.dutycode.dparser.config.HtmlParserConfig;
 import com.dutycode.dparser.config.HtmlParserConfigEnum;
@@ -96,8 +98,6 @@ public class HtmlParser {
 			e.printStackTrace();
 		}
 
-		System.out.println(map);
-
 	}
 
 	/**
@@ -122,7 +122,7 @@ public class HtmlParser {
 	 * @param clazz
 	 *            需要转成的实体类
 	 * @param entityType
-	 *            实体属性， 一般用于解析多个页面时使用
+	 *            实体属性， 一般用于解析多个页面时使用， 可为空
 	 * @return
 	 */
 	public static <T> T transferHtml(String htmlInfo, Class<T> clazz, String entityType) {
@@ -140,6 +140,22 @@ public class HtmlParser {
 	 */
 	public static <T> T transferHtml(org.jsoup.nodes.Element htmlelem, Class<T> clazz) {
 		return transferHtml(htmlelem, clazz, null);
+	}
+
+	public static <T> T transferHtml(String url, Class<T> clazz, int timeoutMills, String entityType) {
+		try {
+			org.jsoup.nodes.Document doc = Jsoup.parse(new URL(url), timeoutMills);
+			return transferHtml(doc, clazz, entityType);
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	public static <T> T transferHtml(String url, Class<T> clazz, int timeoutMills) {
+		return transferHtml(url, clazz, timeoutMills, null);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -205,7 +221,6 @@ public class HtmlParser {
 			Class<?> type = getMethodType(config.getColunmType());
 
 			try {
-
 				// 执行set方法
 				Method method = obj.getClass().getMethod(setMethodName, type);
 				method.invoke(obj, value);

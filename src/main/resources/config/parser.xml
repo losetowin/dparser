@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- path: 元素的dom路径; pos：元素的位置; valtype：字段值的类型，1为字面值， 2为dom属性值； attributename 
 	： valtype为1时可用，表示dom里面的属性名称; columentype : 数值类型，包含 int , long, string, double， 
-	date -->
+	date 
+	 type 为DTO实体下的处理方式，用于同一实体对应多个页面，并且每个页面上存在差异数据的时候使用，可为空。
+	-->
 
 <transfers>
-	<transfer className="com.dutycode.parser.DemoEntity">
+	<transfer className="com.dutycode.parser.DemoEntity" type="0,1">
 		<column>
 			<columnName>realName</columnName>
 			<path>table tbody tr td input</path>
