@@ -1,8 +1,8 @@
 package dparser;
 
-import org.junit.Test;
 
 import com.dutycode.dparser.htmlparser.HtmlParser;
+import org.junit.Test;
 
 public class HtmlParserTest {
 
