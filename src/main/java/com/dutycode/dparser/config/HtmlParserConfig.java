@@ -8,6 +8,11 @@ public class HtmlParserConfig {
 
 	private int postion;
 
+	/**起始位置,List时使用*/
+	private int startpos;
+	/**结束位置,List时使用*/
+	private int endpos;
+
 	private String valType;
 
 	private String attributeName;
@@ -23,6 +28,12 @@ public class HtmlParserConfig {
 		this.path = path;
 		this.postion = pos;
 		this.valType = valType;
+	}
+
+	public HtmlParserConfig(String path, int startpos, int endpos) {
+		this.path = path;
+		this.startpos = startpos;
+		this.endpos = endpos;
 	}
 
 	public String getColumnName() {
@@ -72,12 +83,34 @@ public class HtmlParserConfig {
 	public void setColunmType(String colunmType) {
 		this.colunmType = colunmType;
 	}
-	@Override
-	public String toString() {
-		return "HtmlParserConfig [columnName=" + columnName + ", path="
-				+ path + ", postion=" + postion + ", valType=" + valType
-				+ ", attributeName=" + attributeName + ", colunmType="
-				+ colunmType + "]";
+
+	public int getStartpos() {
+		return startpos;
 	}
 
+	public void setStartpos(int startpos) {
+		this.startpos = startpos;
+	}
+
+	public int getEndpos() {
+		return endpos;
+	}
+
+	public void setEndpos(int endpos) {
+		this.endpos = endpos;
+	}
+
+	@Override
+	public String toString() {
+		return "HtmlParserConfig{" +
+				"columnName='" + columnName + '\'' +
+				", path='" + path + '\'' +
+				", postion=" + postion +
+				", startpos=" + startpos +
+				", endpos=" + endpos +
+				", valType='" + valType + '\'' +
+				", attributeName='" + attributeName + '\'' +
+				", colunmType='" + colunmType + '\'' +
+				'}';
+	}
 }

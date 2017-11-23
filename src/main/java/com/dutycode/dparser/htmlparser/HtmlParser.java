@@ -24,8 +24,12 @@ import com.dutycode.dparser.config.HtmlParserConfigEnum;
 
 /**
  * Html代码转换成实体的工具类 1、初始化配置文件 2、维护配置数据信息 3、提供转化实体方法
- * 
+ *
+ * 使用时,请保留此注释
+ * @website https://www.dutycode.com
  * @author zzh
+ * @email dutycode@gmail.com
+ * @version 0.0.1
  *
  */
 public class HtmlParser {
@@ -33,6 +37,10 @@ public class HtmlParser {
 	private static Logger logger = Logger.getLogger(HtmlParser.class);
 
 	private static Map<String, Map<String, HtmlParserConfig>> map = new HashMap<String, Map<String, HtmlParserConfig>>();
+
+    private static final String TRANSFER_CACHE_PREFIX = "transfer_";
+
+    private static final String TRANSFERLIST_CACHE_PREFIX = "transferlist_";
 
 	static {
 		// 默认初始化配置文件，配置文件不存在，则不初始化
@@ -57,40 +65,52 @@ public class HtmlParser {
 			Element root = document.getRootElement();
 			List<Element> childElements = root.elements();
 			for (Element child : childElements) {
-				// 已知属性名情况下
-				String className = child.attributeValue("className");
-				String type = child.attributeValue("type");
 
-				Map<String, HtmlParserConfig> columnMap = new HashMap<String, HtmlParserConfig>();
-				List<Element> columnList = child.elements();
-				for (Element column : columnList) {
-					String columnName = column.elementText("columnName");
-					String path = column.elementText("path");
-					String pos = column.elementText("pos");
-					String valType = column.elementText("valType");
-					String attributeName = column.elementText("attributeName");
-					String columnType = column.elementText("columnType");
+                //转换实体数据
+                String qname = child.getQualifiedName();
+                if (HtmlParserConfigEnum.PARSER_TYPE_ENTITY.getName().equals(qname)){
+                    //单实体处理
+                    // 已知属性名情况下
+                    String className = child.attributeValue("className");
+                    String type = child.attributeValue("type");
 
-					int posInt = Integer.valueOf(pos);
-					HtmlParserConfig config = new HtmlParserConfig(columnName, path, posInt, valType, attributeName,
-							columnType);
-					columnMap.put(columnName, config);
-				}
+                    Map<String, HtmlParserConfig> columnMap = new HashMap<String, HtmlParserConfig>();
+                    List<Element> columnList = child.elements();
+                    for (Element column : columnList) {
+                        String columnName = column.elementText("columnName");
+                        String path = column.elementText("path");
+                        String pos = column.elementText("pos");
+                        String valType = column.elementText("valType");
+                        String attributeName = column.elementText("attributeName");
+                        String columnType = column.elementText("columnType");
 
-				// 添加配置信息到缓存中
+                        int posInt = Integer.valueOf(pos);
+                        HtmlParserConfig config = new HtmlParserConfig(columnName, path, posInt, valType, attributeName,
+                                columnType);
+                        columnMap.put(columnName, config);
+                    }
 
-				String key = className;
-				if (StringUtils.isNotBlank(type)) {
+                    // 添加配置信息到缓存中
 
-					String[] typeArr = type.split(",");
-					for (String tmpType : typeArr) {
-						key = className + "_" + tmpType;
-						map.put(key, columnMap);
-					}
+                    String key = className;
+                    if (StringUtils.isNotBlank(type)) {
 
-				} else {
-					map.put(key, columnMap);
-				}
+                        String[] typeArr = type.split(",");
+                        for (String tmpType : typeArr) {
+                            key = className + "_" + tmpType;
+                            map.put(TRANSFER_CACHE_PREFIX + key, columnMap);
+                        }
+
+                    } else {
+                        map.put(TRANSFER_CACHE_PREFIX + key, columnMap);
+                    }
+
+                }else if (HtmlParserConfigEnum.PARSER_TYPE_LIST.getName().equals(qname)){
+                    //列表类型数据
+
+
+                }
+
 
 			}
 
@@ -241,6 +261,21 @@ public class HtmlParser {
 
 		return (T) (obj);
 	}
+
+
+    /**
+     * 转换List类型的数据
+     * @param html  待转换的html代码
+     * @param clazz 待转换到的实体对象
+     * @param entityType 类型,对DTO时有效.
+     * @param <T>
+     * @return
+     */
+    public static <T> List<T> transferHtmlList(String html, Class<T> clazz, String entityType){
+
+
+        return null;
+    }
 
 	private static Class<?> getMethodType(String type) {
 		if ("string".equals(type)) {

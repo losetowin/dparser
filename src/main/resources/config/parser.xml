@@ -23,78 +23,11 @@
 			<attributeName>value</attributeName>
 			<columnType>string</columnType>
 		</column>
-		<column>
-			<columnName>idcard</columnName>
-			<path>table tbody tr td input</path>
-			<pos>2</pos>
-			<valType>1</valType>
-			<attributeName>value</attributeName>
-			<columnType>string</columnType>
-		</column>
-		<column>
-			<columnName>sex</columnName>
-			<path>table tbody tr td input</path>
-			<pos>3</pos>
-			<valType>1</valType>
-			<attributeName>value</attributeName>
-			<columnType>string</columnType>
-		</column>
-		<column>
-			<columnName>birthday</columnName>
-			<path>table tbody tr td input</path>
-			<pos>4</pos>
-			<valType>1</valType>
-			<attributeName>value</attributeName>
-			<columnType>string</columnType>
-		</column>
-		<column>
-			<columnName>householdType</columnName>
-			<path>table tbody tr td input</path>
-			<pos>5</pos>
-			<valType>1</valType>
-			<attributeName>value</attributeName>
-			<columnType>string</columnType>
-		</column>
-		<column>
-			<columnName>medicalCard</columnName>
-			<path>table tbody tr td input</path>
-			<pos>6</pos>
-			<valType>1</valType>
-			<attributeName>value</attributeName>
-			<columnType>string</columnType>
-		</column>
-		<column>
-			<columnName>cardState</columnName>
-			<path>table tbody tr td input</path>
-			<pos>7</pos>
-			<valType>1</valType>
-			<attributeName>value</attributeName>
-			<columnType>string</columnType>
-		</column>
-		<column>
-			<columnName>workerType</columnName>
-			<path>table tbody tr td input</path>
-			<pos>8</pos>
-			<valType>1</valType>
-			<attributeName>value</attributeName>
-			<columnType>string</columnType>
-		</column>
-		<column>
-			<columnName>jobTitle</columnName>
-			<path>table tbody tr td input</path>
-			<pos>10</pos>
-			<valType>1</valType>
-			<attributeName>value</attributeName>
-			<columnType>string</columnType>
-		</column>
-		<column>
-			<columnName>insuredUnit</columnName>
-			<path>table tbody tr td input</path>
-			<pos>12</pos>
-			<valType>1</valType>
-			<attributeName>value</attributeName>
-			<columnType>string</columnType>
-		</column>
 	</transfer>
+	<list type="this_is_list_type_name">
+		<path>table tbody tr td input</path> <!-- dom路径 -->
+		<startpos>0</startpos> <!--起始位置-->
+		<endpos>10</endpos> <!-- 结束位置-->
+	</list>
 
 </transfers>
