@@ -24,10 +24,11 @@
 			<columnType>string</columnType>
 		</column>
 	</transfer>
-	<list type="this_is_list_type_name">
-		<path>table tbody tr td input</path> <!-- dom路径 -->
-		<startpos>0</startpos> <!--起始位置-->
-		<endpos>10</endpos> <!-- 结束位置-->
+	<list type="this_is_type_name" entityType="0,1"> <!-- entityType为Tranfer实体中的type值 ，用于直接转换实体的时候使用-->
+		<path>table tbody</path> <!-- DOM路径 -->
+		<startpos>0</startpos> <!-- 起始位置 -->
+		<endpos>10</endpos><!-- 结束位置 -->
 	</list>
+	
 
 </transfers>
