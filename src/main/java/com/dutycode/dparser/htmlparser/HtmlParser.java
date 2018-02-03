@@ -246,6 +246,11 @@ public class HtmlParser {
                 elem = ems.get(config.getPostion());
             } catch (Exception e1) {
                 e1.printStackTrace();
+                continue;//跳过继续执行下一个数据
+            }
+
+            if (elem == null) {
+                continue;//数据异常,跳过,执行下一个数据
             }
 
             String value = "";
@@ -270,9 +275,11 @@ public class HtmlParser {
             Class<?> type = getMethodType(config.getColunmType());
 
             try {
+
                 // 执行set方法
                 Method method = obj.getClass().getMethod(setMethodName, type);
-                method.invoke(obj, value);
+                Object cast = castVal(value, type);
+                method.invoke(obj, cast);
 
             } catch (IllegalAccessException e) {
                 e.printStackTrace();
@@ -305,7 +312,7 @@ public class HtmlParser {
 
         List<T> resList = new ArrayList<T>();
         //检查是否存在List相应的配置
-        String listmapKey = TRANSFERLIST_CACHE_PREFIX  + "_" + clazz.getCanonicalName() + "_" + listType;
+        String listmapKey = TRANSFERLIST_CACHE_PREFIX + "_" + clazz.getCanonicalName() + "_" + listType;
         if (!map.containsKey(listmapKey)) {
             logger.error(String.format("当前不存在type=%s的list节点", listType));
             return null;
@@ -324,11 +331,22 @@ public class HtmlParser {
             return null;
         }
 
+        //endpos配置的是最大的元素数,可能存在没有的情况.
         for (int i = listConfig.getStartpos(); i < listConfig.getEndpos(); i++) {
-            org.jsoup.nodes.Element e = es.get(i);
-            //获取实体
-            T entity = transferHtml(e, clazz, entityType);
-            resList.add(entity);
+            try {
+                org.jsoup.nodes.Element e = es.get(i);
+                if (e == null) {
+                    //元素不存在,则跳过
+                    continue;
+                }
+                //获取实体
+                T entity = transferHtml(e, clazz, entityType);
+                if (entity != null) {
+                    resList.add(entity);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
         return resList;
     }
@@ -353,13 +371,38 @@ public class HtmlParser {
         if ("string".equals(type)) {
             return String.class;
         } else if ("int".equals(type)) {
+            return int.class;
+        } else if ("Integer".equals(type)) {
             return Integer.class;
         } else if ("long".equals(type)) {
+            return long.class;
+        } else if ("Long".equals(type)) {
             return Long.class;
         } else if ("double".equals(type)) {
+            return double.class;
+        } else if ("Double".equals(type)) {
             return Double.class;
         } else {
             return Object.class;
+        }
+    }
+
+
+    /**
+     * 转换数据
+     * @param val
+     * @param clazz
+     * @return
+     */
+    private static Object castVal(String val, Class<?> clazz) {
+        if (clazz.equals(int.class) || clazz.equals(Integer.class)) {
+            return Integer.valueOf(val);
+        } else if (clazz.equals(double.class) || clazz.equals(Double.class)) {
+            return Double.valueOf(val);
+        } else if (clazz.equals(long.class) || clazz.equals(Long.class)) {
+            return Long.valueOf(val);
+        } else {
+            return val;
         }
     }
 
